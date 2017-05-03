@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SPA with KnockoutJS</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />      
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>People</h1>            
+        </div>
+        
+        <div class="row">
+            <div class="col-md-9 col-md-offset-1">
+                <input type="text" placeholder="Filter by Name" class="input-lg form-control" data-bind="value: filterByName, valueUpdate: 'afterkeydown'" />
+            </div>
+        </div>
+        <br />
+        <br />
+
+            <table class="table table-bordered table-condensed" data-bind="visible: people().length > 0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: txtFilter" >
+                    <tr data-bind="if: editing">
+                        <td><span data-bind="text: Id"></span></td>
+                        <td><input type="text" data-bind="value: Name" /></td>
+                        <td><input type="number" data-bind="value: Age" /></td>
+                        <td>
+                            <button class="btn" data-bind="click: $parent.save">Save</button>
+                            <button class="btn" data-bind="click: $parent.cancel">Cancel</button>
+                        </td>
+                    </tr>
+                    <tr data-bind="ifnot: editing">
+                        <td><span data-bind="text: Id"></span></td>
+                        <td><span data-bind="text: Name"></span></td>
+                        <td><span data-bind="text: Age"></span></td>
+                        <td><button class="btn" data-bind="click: $parent.edit">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        <p data-bind="visible: error, text: error" class="text-error"></p>
+        <p class="text-info" data-bind="visible: !error() && people().length == 0">No records found.</p>
+        </div>
+    <script src="Scripts/jquery-3.1.1.js"></script>
+    <script src="Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="Scripts/indexservice.js"></script>
+    <script src="Scripts/index.js"></script>
+    
+</body>
+</html>
